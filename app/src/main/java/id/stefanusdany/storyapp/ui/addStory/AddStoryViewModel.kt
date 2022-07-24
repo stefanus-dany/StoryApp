@@ -1,17 +1,22 @@
 package id.stefanusdany.storyapp.ui.addStory
 
+import java.io.File
 import androidx.lifecycle.ViewModel
-import id.stefanusdany.storyapp.repository.Repository
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
 
-class AddStoryViewModel(private val repository: Repository) : ViewModel() {
+class AddStoryViewModel(private val repository: id.stefanusdany.data.repository.Repository) :
+    ViewModel() {
 
     fun uploadStory(
         token: String,
-        file: MultipartBody.Part,
-        description: RequestBody,
-        lat: RequestBody,
-        lon: RequestBody
-    ) = repository.uploadStory(token = token, file = file, description = description, lat = lat, lon = lon)
+        file: File,
+        description: String,
+        lat: Float,
+        lon: Float
+    ) = repository.uploadStory(
+        token = token,
+        file = file,
+        description = description,
+        lat = lat,
+        lon = lon
+    )
 }

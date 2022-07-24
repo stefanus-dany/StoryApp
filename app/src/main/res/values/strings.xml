@@ -8,7 +8,6 @@
     <string name="tv_desc">Description</string>
     <string name="password">Password</string>
     <string name="message_login_page">Insert your data below!</string>
-    <string name="password_less_than_six_char">Password less than 6 character</string>
     <string name="title_alert_success">Yeah!</string>
     <string name="title_alert_failed">Oops!</string>
     <string name="message_alert_register_success">Your account has been created.</string>
@@ -19,14 +18,11 @@
     <string name="message_alert_register_failed">Something went wrong. Try again!</string>
     <string name="next">Next</string>
     <string name="back">Back</string>
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
     <string name="title_login_page">Welcome to Story App</string>
     <string name="insert_name">Insert name</string>
-    <string name="insert_email">Insert email</string>
     <string name="insert_desc">Insert story description</string>
-    <string name="insert_password">Insert password</string>
     <string name="insert_image">Insert image</string>
-    <string name="email_not_valid">Email does not valid</string>
     <string name="token_format">Bearer %s</string>
     <string name="error_get_info_user">Something went wrong!</string>
     <string name="error_didnt_get_permission">Did not get permission.</string>
@@ -60,7 +56,4 @@
     <string name="satellite_type">Satellite</string>
     <string name="terrain_type">Terrain</string>
     <string name="hybrid_type">Hybrid</string>
-    <string name="retry">Retry</string>
-    <string name="get_your_location">Get Your Location</string>
-    <string name="location_format">Lat: %s\nLong: %s</string>
 </resources>

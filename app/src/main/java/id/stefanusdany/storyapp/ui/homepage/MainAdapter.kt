@@ -9,10 +9,10 @@ import androidx.core.util.Pair
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import id.stefanusdany.core.helper.utils.Helper
 import id.stefanusdany.storyapp.R
-import id.stefanusdany.storyapp.data.remote.response.ListStoryResponse
+import id.stefanusdany.data.data.remote.response.ListStoryResponse
 import id.stefanusdany.storyapp.databinding.ItemStoryBinding
-import id.stefanusdany.storyapp.helper.Helper
 import id.stefanusdany.storyapp.ui.detail.DetailActivity
 import id.stefanusdany.storyapp.ui.utils.UIHelper.loadImage
 

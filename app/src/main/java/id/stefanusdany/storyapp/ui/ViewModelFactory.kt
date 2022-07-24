@@ -4,14 +4,13 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import id.stefanusdany.storyapp.di.Injection
-import id.stefanusdany.storyapp.repository.Repository
 import id.stefanusdany.storyapp.ui.addStory.AddStoryViewModel
 import id.stefanusdany.storyapp.ui.homepage.MainViewModel
 import id.stefanusdany.storyapp.ui.login.LoginViewModel
 import id.stefanusdany.storyapp.ui.maps.MapsViewModel
 import id.stefanusdany.storyapp.ui.register.RegisterViewModel
 
-class ViewModelFactory(private val repository: Repository) :
+class ViewModelFactory(private val repository: id.stefanusdany.data.repository.Repository) :
     ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")

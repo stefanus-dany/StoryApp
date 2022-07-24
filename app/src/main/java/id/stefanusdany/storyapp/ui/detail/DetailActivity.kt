@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import id.stefanusdany.storyapp.R
-import id.stefanusdany.storyapp.data.remote.response.ListStoryResponse
+import id.stefanusdany.data.data.remote.response.ListStoryResponse
 import id.stefanusdany.storyapp.databinding.ActivityDetailBinding
-import id.stefanusdany.storyapp.helper.Helper
+import id.stefanusdany.core.helper.utils.Helper
 import id.stefanusdany.storyapp.ui.utils.UIHelper.loadImage
 
 class DetailActivity : AppCompatActivity() {

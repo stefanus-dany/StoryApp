@@ -18,24 +18,19 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import id.stefanusdany.core.helper.utils.Helper
+import id.stefanusdany.core.helper.utils.createTempFile
+import id.stefanusdany.core.helper.utils.reduceFileImage
+import id.stefanusdany.core.helper.utils.uriToFile
+import id.stefanusdany.data.data.Result
 import id.stefanusdany.storyapp.R
-import id.stefanusdany.storyapp.data.Result
 import id.stefanusdany.storyapp.databinding.ActivityAddStoryBinding
-import id.stefanusdany.storyapp.helper.Helper
-import id.stefanusdany.storyapp.helper.createTempFile
-import id.stefanusdany.storyapp.helper.reduceFileImage
-import id.stefanusdany.storyapp.helper.uriToFile
 import id.stefanusdany.storyapp.ui.ViewModelFactory
 import id.stefanusdany.storyapp.ui.utils.UIHelper.getTextViewString
 import id.stefanusdany.storyapp.ui.utils.UIHelper.gone
 import id.stefanusdany.storyapp.ui.utils.UIHelper.showDialog
 import id.stefanusdany.storyapp.ui.utils.UIHelper.showSnackBar
 import id.stefanusdany.storyapp.ui.utils.UIHelper.visible
-import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.RequestBody.Companion.asRequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
 
 class AddStoryActivity : AppCompatActivity() {
 
@@ -174,27 +169,13 @@ class AddStoryActivity : AppCompatActivity() {
                 else -> {
                     if (getFile != null) {
                         val file = reduceFileImage(getFile as File)
-
-                        val description =
-                            etDescAddStory.getTextViewString()
-                                .toRequestBody(TEXT_FILE.toMediaType())
-                        val latRequestBody =
-                            lat.toString().toRequestBody(TEXT_FILE.toMediaType())
-                        val lonRequestBody =
-                            long.toString().toRequestBody(TEXT_FILE.toMediaType())
-                        val requestImageFile = file.asRequestBody(IMAGE_FILE.toMediaTypeOrNull())
-                        val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
-                            PHOTO_FILE,
-                            file.name,
-                            requestImageFile
-                        )
                         userToken?.let { token ->
                             addStoryViewModel.uploadStory(
                                 getString(R.string.token_format, token),
-                                imageMultipart,
-                                description,
-                                latRequestBody,
-                                lonRequestBody
+                                file,
+                                etDescAddStory.getTextViewString(),
+                                lat,
+                                long
                             ).observe(this@AddStoryActivity) { result ->
                                 if (result != null) {
                                     when (result) {
@@ -321,8 +302,5 @@ class AddStoryActivity : AppCompatActivity() {
         )
         private const val REQUEST_CODE_PERMISSIONS = 10
         private const val DEFAULT_LAT_LONG = 0.0F
-        private const val TEXT_FILE = "text/plain"
-        private const val IMAGE_FILE = "image/jpeg"
-        private const val PHOTO_FILE = "photo"
     }
 }

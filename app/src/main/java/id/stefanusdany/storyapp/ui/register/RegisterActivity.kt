@@ -6,8 +6,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import id.stefanusdany.data.data.Result
 import id.stefanusdany.storyapp.R
-import id.stefanusdany.storyapp.data.Result
 import id.stefanusdany.storyapp.databinding.ActivityRegisterBinding
 import id.stefanusdany.storyapp.ui.ViewModelFactory
 import id.stefanusdany.storyapp.ui.login.LoginActivity
@@ -34,8 +34,13 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun playAnimation() {
-        ObjectAnimator.ofFloat(binding.imageView, View.TRANSLATION_X, -30f, 30f).apply {
-            duration = 6000
+        ObjectAnimator.ofFloat(
+            binding.imageView,
+            View.TRANSLATION_X,
+            ANIMATION_VALUES.first,
+            ANIMATION_VALUES.second
+        ).apply {
+            duration = ANIMATION_DURATION
             repeatCount = ObjectAnimator.INFINITE
             repeatMode = ObjectAnimator.REVERSE
         }.start()
@@ -139,6 +144,11 @@ class RegisterActivity : AppCompatActivity() {
 
             }
         }
+    }
+
+    companion object {
+        private const val ANIMATION_DURATION = 6000L
+        private val ANIMATION_VALUES = Pair(-30f, 30f)
     }
 
 }

@@ -13,8 +13,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import id.stefanusdany.storyapp.JsonConverter
 import id.stefanusdany.storyapp.R
-import id.stefanusdany.storyapp.data.remote.retrofit.ApiConfig
-import id.stefanusdany.storyapp.helper.EspressoIdlingResource
+import id.stefanusdany.data.data.remote.retrofit.ApiConfig
+import id.stefanusdany.core.helper.utils.EspressoIdlingResource
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After

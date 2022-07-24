@@ -13,10 +13,10 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
+import id.stefanusdany.core.helper.utils.Helper.TAG
+import id.stefanusdany.data.data.Result
 import id.stefanusdany.storyapp.R
-import id.stefanusdany.storyapp.data.Result
 import id.stefanusdany.storyapp.databinding.ActivityMapsBinding
-import id.stefanusdany.storyapp.helper.Helper.TAG
 import id.stefanusdany.storyapp.ui.ViewModelFactory
 import id.stefanusdany.storyapp.ui.utils.UIHelper.showSnackBar
 
@@ -64,7 +64,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun setMarker() {
         mapsViewModel.getUserInfo().observe(this) { userInfo ->
-            mapsViewModel.getAllMarkerMaps(getString(R.string.token_format, userInfo.token), 1)
+            mapsViewModel.getAllMarkerMaps(
+                getString(R.string.token_format, userInfo.token),
+                DEFAULT_LOCATION
+            )
                 .observe(this) { result ->
                     if (result != null) {
                         when (result) {
@@ -82,7 +85,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                                             .title(i.name)
                                     )
                                 }
-                                val defaultCameraSetup = LatLng(-6.200000, 106.816666)
+                                val defaultCameraSetup = LatLng(DEFAULT_LAT, DEFAULT_LONG)
                                 mMap.animateCamera(
                                     CameraUpdateFactory.newLatLngZoom(
                                         defaultCameraSetup,
@@ -151,5 +154,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             }
             else -> true
         }
+    }
+
+    companion object {
+        private const val DEFAULT_LOCATION = 1
+        private const val DEFAULT_LAT = -6.200000
+        private const val DEFAULT_LONG = 106.816666
     }
 }

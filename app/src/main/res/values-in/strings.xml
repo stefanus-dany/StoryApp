@@ -8,7 +8,6 @@
     <string name="tv_desc">Deskripsi</string>
     <string name="password">Kata Sandi</string>
     <string name="message_login_page">Masukkan dulu datamu ya!</string>
-    <string name="password_less_than_six_char">Kata sandi kurang dari 6 karakter</string>
     <string name="title_alert_success">Yeah!</string>
     <string name="title_alert_failed">Oops!</string>
     <string name="message_alert_register_success">Akunnya berhasil dibuat. Yuk, login.</string>
@@ -21,11 +20,8 @@
     <string name="ok">Oke</string>
     <string name="title_login_page">Selamat Datang di Story App</string>
     <string name="insert_name">Masukkan nama</string>
-    <string name="insert_email">Masukkan surel</string>
     <string name="insert_desc">Masukkan deskripsi story</string>
-    <string name="insert_password">Masukkan kata sandi</string>
     <string name="insert_image">Silakan masukkan berkas gambar terlebih dahulu.</string>
-    <string name="email_not_valid">Surel tidak valid</string>
     <string name="token_format">Bearer %s</string>
     <string name="error_get_info_user">Terjadi kesalahan saat mengambil informasi user!</string>
     <string name="error_didnt_get_permission">Tidak mendapatkan permission.</string>
@@ -59,8 +55,5 @@
     <string name="satellite_type">Satellite</string>
     <string name="terrain_type">Terrain</string>
     <string name="hybrid_type">Hybrid</string>
-    <string name="retry">Coba lagi</string>
     <string name="message_alert_register_failed">Terjadi kesalahan. Coba lagi!</string>
-    <string name="get_your_location">Dapatkan Lokasi Anda</string>
-    <string name="location_format">Lat: %s\nLong: %s</string>
 </resources>

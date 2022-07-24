@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import id.stefanusdany.storyapp.R
-import id.stefanusdany.storyapp.data.Result
+import id.stefanusdany.data.data.Result
 import id.stefanusdany.storyapp.databinding.ActivityLoginBinding
 import id.stefanusdany.storyapp.ui.ViewModelFactory
 import id.stefanusdany.storyapp.ui.homepage.MainActivity

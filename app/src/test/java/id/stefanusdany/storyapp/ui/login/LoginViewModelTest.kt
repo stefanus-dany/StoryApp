@@ -2,11 +2,11 @@ package id.stefanusdany.storyapp.ui.login
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
-import id.stefanusdany.storyapp.DataDummy
-import id.stefanusdany.storyapp.data.Result
-import id.stefanusdany.storyapp.data.remote.response.LoginResponse
-import id.stefanusdany.storyapp.getOrAwaitValue
-import id.stefanusdany.storyapp.repository.Repository
+import id.stefanusdany.data.DataDummy
+import id.stefanusdany.data.data.Result
+import id.stefanusdany.data.data.remote.response.LoginResponse
+import id.stefanusdany.data.getOrAwaitValue
+import id.stefanusdany.data.repository.Repository
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
@@ -23,9 +23,9 @@ class LoginViewModelTest {
     var instantExecutorRule = InstantTaskExecutorRule()
 
     @Mock
-    private lateinit var repository: Repository
+    private lateinit var repository: id.stefanusdany.data.repository.Repository
     private lateinit var loginViewModel: LoginViewModel
-    private val dummyLogin = DataDummy.generateDummyLoginResponse()
+    private val dummyLogin = id.stefanusdany.data.DataDummy.generateDummyLoginResponse()
     private val email = "johnchampion@gmail.com"
     private val password = "password"
 
@@ -36,8 +36,8 @@ class LoginViewModelTest {
 
     @Test
     fun `when login response should not null and return success`() {
-        val expectedLogin = MutableLiveData<Result<LoginResponse>>()
-        expectedLogin.value = Result.Success(dummyLogin)
+        val expectedLogin = MutableLiveData<id.stefanusdany.data.data.Result<id.stefanusdany.data.data.remote.response.LoginResponse>>()
+        expectedLogin.value = id.stefanusdany.data.data.Result.Success(dummyLogin)
 
         `when`(loginViewModel.login(email, password)).thenReturn(expectedLogin)
 
@@ -45,18 +45,18 @@ class LoginViewModelTest {
 
         Mockito.verify(repository).login(email, password)
         assertNotNull(actualLogin)
-        assertTrue(actualLogin is Result.Success)
+        assertTrue(actualLogin is id.stefanusdany.data.data.Result.Success)
     }
 
     @Test
     fun `when login response error should return error`() {
-        val login = MutableLiveData<Result<LoginResponse>>()
-        login.value = Result.Error("Error")
+        val login = MutableLiveData<id.stefanusdany.data.data.Result<id.stefanusdany.data.data.remote.response.LoginResponse>>()
+        login.value = id.stefanusdany.data.data.Result.Error("Error")
         `when`(loginViewModel.login(email, password)).thenReturn(login)
         val actualLogin = loginViewModel.login(email, password).getOrAwaitValue()
         Mockito.verify(repository).login(email, password)
         assertNotNull(actualLogin)
-        assertTrue(actualLogin is Result.Error)
+        assertTrue(actualLogin is id.stefanusdany.data.data.Result.Error)
     }
 
     @Test

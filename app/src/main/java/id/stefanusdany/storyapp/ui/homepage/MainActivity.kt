@@ -9,9 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import id.stefanusdany.storyapp.R
-import id.stefanusdany.storyapp.data.remote.response.LoginResultResponse
 import id.stefanusdany.storyapp.databinding.ActivityMainBinding
-import id.stefanusdany.storyapp.helper.Helper
+import id.stefanusdany.core.helper.utils.Helper
 import id.stefanusdany.storyapp.ui.ViewModelFactory
 import id.stefanusdany.storyapp.ui.addStory.AddStoryActivity
 import id.stefanusdany.storyapp.ui.login.LoginActivity
@@ -24,7 +23,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var mainViewModel: MainViewModel
     private lateinit var adapter: MainAdapter
-    private var userInfo: LoginResultResponse? = null
+    private var userInfo: id.stefanusdany.data.data.remote.response.LoginResultResponse? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

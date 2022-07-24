@@ -6,9 +6,9 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import id.stefanusdany.storyapp.data.remote.response.ListStoryResponse
-import id.stefanusdany.storyapp.data.remote.response.LoginResultResponse
-import id.stefanusdany.storyapp.repository.Repository
+import id.stefanusdany.data.data.remote.response.ListStoryResponse
+import id.stefanusdany.data.data.remote.response.LoginResultResponse
+import id.stefanusdany.data.repository.Repository
 
 class MainViewModel(private val repository: Repository) : ViewModel() {
 

@@ -1,27 +1,17 @@
 package id.stefanusdany.storyapp.ui.addStory
 
+import java.io.File
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.MutableLiveData
-import id.stefanusdany.storyapp.DataDummy
-import id.stefanusdany.storyapp.data.Result
-import id.stefanusdany.storyapp.data.remote.response.FileUploadResponse
-import id.stefanusdany.storyapp.getOrAwaitValue
-import id.stefanusdany.storyapp.repository.Repository
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
-import org.junit.Assert.assertNotNull
-import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
-import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnitRunner
-import java.io.File
 
 @RunWith(MockitoJUnitRunner::class)
 class AddStoryViewModelTest {
@@ -29,9 +19,9 @@ class AddStoryViewModelTest {
     var instantExecutorRule = InstantTaskExecutorRule()
 
     @Mock
-    private lateinit var repository: Repository
+    private lateinit var repository: id.stefanusdany.data.repository.Repository
     private lateinit var addStoryViewModel: AddStoryViewModel
-    private val dummyAddStory = DataDummy.generateDummyAddStoryResponse()
+    private val dummyAddStory = id.stefanusdany.data.DataDummy.generateDummyAddStoryResponse()
     private val token =
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c2VyLTdQYjNXNzM1UXZiY3JhVk4iLCJpYXQiOjE2NTA3NzI5ODB9.jIxrscIU2_Wd82GuPhwjgf-chO3SA_vrPVsZT0H-ZyM"
     private val file = File("file")

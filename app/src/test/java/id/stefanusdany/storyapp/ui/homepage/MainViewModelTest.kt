@@ -8,11 +8,11 @@ import androidx.paging.PagingData
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import androidx.recyclerview.widget.ListUpdateCallback
-import id.stefanusdany.storyapp.DataDummy
-import id.stefanusdany.storyapp.MainCoroutineRule
-import id.stefanusdany.storyapp.data.remote.response.ListStoryResponse
-import id.stefanusdany.storyapp.data.remote.response.LoginResultResponse
-import id.stefanusdany.storyapp.getOrAwaitValue
+import id.stefanusdany.data.DataDummy
+import id.stefanusdany.data.MainCoroutineRule
+import id.stefanusdany.data.data.remote.response.ListStoryResponse
+import id.stefanusdany.data.data.remote.response.LoginResultResponse
+import id.stefanusdany.data.getOrAwaitValue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runBlockingTest

@@ -1,7 +1,7 @@
 package id.stefanusdany.storyapp.ui.login
 
 import androidx.lifecycle.ViewModel
-import id.stefanusdany.storyapp.repository.Repository
+import id.stefanusdany.data.repository.Repository
 
 class LoginViewModel(private val repository: Repository) : ViewModel() {
 
