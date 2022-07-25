@@ -1,24 +1,18 @@
 package id.stefanusdany.storyapp.ui.homepage
 
-import androidx.lifecycle.LiveData
+import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
-import androidx.paging.PagingData
-import androidx.paging.cachedIn
-import id.stefanusdany.data.data.remote.response.ListStoryResponse
-import id.stefanusdany.data.data.remote.response.LoginResultResponse
-import id.stefanusdany.data.repository.Repository
+import id.stefanusdany.domain.usecase.auth.AuthUseCase
+import id.stefanusdany.domain.usecase.story.StoryUseCase
 
-class MainViewModel(private val repository: Repository) : ViewModel() {
+class MainViewModel(private val storyUseCase: StoryUseCase, private val authUseCase: AuthUseCase) :
+    ViewModel() {
 
-    fun getUserInfo(): LiveData<LoginResultResponse> = repository.getUserInfo().asLiveData()
+    fun getUserInfo() = LiveDataReactiveStreams.fromPublisher(authUseCase.getUserInfo())
 
-    fun getAllStories(token: String): LiveData<PagingData<ListStoryResponse>> =
-        repository.getAllStories(token).cachedIn(viewModelScope)
+    fun getAllStories(token: String) =
+        LiveDataReactiveStreams.fromPublisher(storyUseCase.getAllStories(token))
 
-    fun logout() {
-        repository.logout()
-    }
+    fun logout() = authUseCase.logout()
 
 }

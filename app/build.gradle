@@ -39,7 +39,7 @@ android {
         jvmTarget = '1.8'
         freeCompilerArgs += ["-Xopt-in=kotlin.RequiresOptIn"]
     }
-    dynamicFeatures = [':favorite']
+    dynamicFeatures = []
 }
 
 dependencies {
@@ -58,8 +58,13 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
     implementation 'com.google.android.gms:play-services-location:20.0.0'
 
+    // reactive streams
+    implementation "androidx.lifecycle:lifecycle-reactivestreams-ktx:$lifecycle_version"
+
     // project
     implementation project(":core")
-    implementation project(":data")
     implementation project(":domain")
+
+    // TODO delete soon
+    implementation project(":data")
 }

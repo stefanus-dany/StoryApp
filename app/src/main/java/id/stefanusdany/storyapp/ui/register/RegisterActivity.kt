@@ -6,7 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import id.stefanusdany.data.data.Result
+import id.stefanusdany.core.helper.utils.Result
 import id.stefanusdany.storyapp.R
 import id.stefanusdany.storyapp.databinding.ActivityRegisterBinding
 import id.stefanusdany.storyapp.ui.ViewModelFactory

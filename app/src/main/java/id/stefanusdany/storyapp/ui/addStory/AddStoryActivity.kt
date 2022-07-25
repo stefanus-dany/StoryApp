@@ -19,10 +19,10 @@ import androidx.core.content.FileProvider
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import id.stefanusdany.core.helper.utils.Helper
+import id.stefanusdany.core.helper.utils.Result
 import id.stefanusdany.core.helper.utils.createTempFile
 import id.stefanusdany.core.helper.utils.reduceFileImage
 import id.stefanusdany.core.helper.utils.uriToFile
-import id.stefanusdany.data.data.Result
 import id.stefanusdany.storyapp.R
 import id.stefanusdany.storyapp.databinding.ActivityAddStoryBinding
 import id.stefanusdany.storyapp.ui.ViewModelFactory
@@ -191,6 +191,8 @@ class AddStoryActivity : AppCompatActivity() {
                                                 message = getString(R.string.message_alert_add_story_success),
                                                 positiveButtonText = getString(R.string.ok),
                                                 positiveButton = { _, _ ->
+                                                    val intent = Intent()
+                                                    setResult(Helper.RESULT_SUCCESS, intent)
                                                     finish()
                                                 }
                                             )

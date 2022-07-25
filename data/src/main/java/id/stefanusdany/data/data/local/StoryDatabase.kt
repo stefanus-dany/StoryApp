@@ -4,17 +4,16 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import id.stefanusdany.data.data.remote.response.ListStoryResponse
+import id.stefanusdany.data.data.local.entity.ListStoryEntity
 
 @Database(
-    entities = [ListStoryResponse::class, RemoteKeys::class],
-    version = 2,
+    entities = [ListStoryEntity::class],
+    version = 1,
     exportSchema = false
 )
 abstract class StoryDatabase : RoomDatabase() {
 
     abstract fun listStoryDao(): ListStoryDao
-    abstract fun remoteKeysDao(): RemoteKeysDao
 
     companion object {
         @Volatile
@@ -25,7 +24,7 @@ abstract class StoryDatabase : RoomDatabase() {
             return INSTANCE ?: synchronized(this) {
                 INSTANCE ?: Room.databaseBuilder(
                     context.applicationContext,
-                    StoryDatabase::class.java, "story_database"
+                    StoryDatabase::class.java, "story_database.db"
                 )
                     .fallbackToDestructiveMigration()
                     .build()

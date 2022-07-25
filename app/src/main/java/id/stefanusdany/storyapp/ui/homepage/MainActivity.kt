@@ -5,17 +5,22 @@ import android.os.Bundle
 import android.provider.Settings
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.snackbar.Snackbar
+import id.stefanusdany.core.helper.utils.Helper
+import id.stefanusdany.core.helper.utils.Result
+import id.stefanusdany.domain.model.auth.LoginResultModel
 import id.stefanusdany.storyapp.R
 import id.stefanusdany.storyapp.databinding.ActivityMainBinding
-import id.stefanusdany.core.helper.utils.Helper
 import id.stefanusdany.storyapp.ui.ViewModelFactory
 import id.stefanusdany.storyapp.ui.addStory.AddStoryActivity
+import id.stefanusdany.storyapp.ui.detail.DetailActivity
 import id.stefanusdany.storyapp.ui.login.LoginActivity
 import id.stefanusdany.storyapp.ui.maps.MapsActivity
 import id.stefanusdany.storyapp.ui.utils.UIHelper.gone
+import id.stefanusdany.storyapp.ui.utils.UIHelper.showSnackBar
 import id.stefanusdany.storyapp.ui.utils.UIHelper.visible
 
 class MainActivity : AppCompatActivity() {
@@ -23,7 +28,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var mainViewModel: MainViewModel
     private lateinit var adapter: MainAdapter
-    private var userInfo: id.stefanusdany.data.data.remote.response.LoginResultResponse? = null
+    private var userInfo: LoginResultModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,39 +37,34 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
         setupViewModel()
         isLogin()
-        setupRVAdapter()
-        setupAction()
     }
 
     private fun getAllStories() {
-        binding.progressBar.visible()
         if (userInfo != null) {
             mainViewModel.getAllStories(getString(R.string.token_format, userInfo?.token))
                 .observe(this) { listStory ->
-                    if (listStory != null) {
-                        with(binding.rvMain) {
-                            layoutManager = LinearLayoutManager(this@MainActivity)
-                            adapter = this@MainActivity.adapter.withLoadStateFooter(
-                                footer = LoadingStateAdapter {
-                                    this@MainActivity.adapter.retry()
+                    binding.apply {
+                        when (listStory) {
+                            is Result.Loading -> progressBar.visible()
+                            is Result.Error -> {
+                                showSnackBar(root, listStory.error)
+                                progressBar.gone()
+                            }
+                            is Result.Success -> {
+                                with(rvMain) {
+                                    layoutManager = LinearLayoutManager(this@MainActivity)
+                                    adapter = this@MainActivity.adapter
+                                    setHasFixedSize(true)
                                 }
-                            )
-                            setHasFixedSize(true)
+                                tvEmpty.gone()
+                                adapter.setData(listStory.data)
+                                progressBar.gone()
+                            }
                         }
-                        binding.tvEmpty.gone()
-                        adapter.submitData(lifecycle, listStory)
-                        binding.progressBar.gone()
-                    } else {
-                        binding.tvEmpty.visible()
-                        binding.progressBar.gone()
                     }
                 }
         } else {
-            Snackbar.make(
-                binding.root,
-                getString(R.string.error_get_info_user),
-                Snackbar.LENGTH_SHORT
-            ).show()
+            showSnackBar(binding.root, getString(R.string.error_get_info_user))
             binding.progressBar.gone()
         }
 
@@ -77,6 +77,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupRVAdapter() {
         adapter = MainAdapter()
+        adapter.onItemClick = { selectedData ->
+            val move = Intent(this, DetailActivity::class.java).apply {
+                putExtra(Helper.EXTRA_STORY, selectedData)
+            }
+            startActivity(move)
+        }
     }
 
     private fun isLogin() {
@@ -89,6 +95,9 @@ class MainActivity : AppCompatActivity() {
                 overridePendingTransition(0, 0)
             } else {
                 setupView()
+                setupRVAdapter()
+                setupAction()
+                getAllStories()
             }
         }
     }
@@ -96,14 +105,20 @@ class MainActivity : AppCompatActivity() {
     private fun setupView() {
         supportActionBar?.show()
         setContentView(binding.root)
-        getAllStories()
     }
 
     private fun setupAction() {
         binding.fabAddStory.setOnClickListener {
             val move = Intent(this, AddStoryActivity::class.java)
             move.putExtra(Helper.EXTRA_TOKEN, userInfo?.token)
-            startActivity(move)
+            startForResult.launch(move)
+        }
+    }
+
+    private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            result: ActivityResult ->
+        if (result.resultCode == Helper.RESULT_SUCCESS) {
+            getAllStories()
         }
     }
 

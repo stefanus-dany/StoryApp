@@ -1,20 +1,21 @@
 package id.stefanusdany.data.data.local
 
-import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import id.stefanusdany.data.data.remote.response.ListStoryResponse
+import id.stefanusdany.data.data.local.entity.ListStoryEntity
+import io.reactivex.Completable
+import io.reactivex.Flowable
 
 @Dao
 interface ListStoryDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertStory(story: List<ListStoryResponse>)
+    fun insertStory(story: List<ListStoryEntity>): Completable
 
     @Query("SELECT * FROM list_story")
-    fun getAllStories(): PagingSource<Int, ListStoryResponse>
+    fun getAllStories(): Flowable<List<ListStoryEntity>>
 
     @Query("DELETE FROM list_story")
-    suspend fun deleteAll()
+    fun deleteAll(): Completable
 }

@@ -14,7 +14,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
 import id.stefanusdany.core.helper.utils.Helper.TAG
-import id.stefanusdany.data.data.Result
+import id.stefanusdany.core.helper.utils.Result
 import id.stefanusdany.storyapp.R
 import id.stefanusdany.storyapp.databinding.ActivityMapsBinding
 import id.stefanusdany.storyapp.ui.ViewModelFactory

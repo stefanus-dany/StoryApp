@@ -1,13 +1,14 @@
 package id.stefanusdany.storyapp.ui.login
 
+import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.ViewModel
-import id.stefanusdany.data.repository.Repository
+import id.stefanusdany.domain.usecase.auth.AuthUseCase
 
-class LoginViewModel(private val repository: Repository) : ViewModel() {
+class LoginViewModel(private val authUseCase: AuthUseCase) : ViewModel() {
 
-    fun login(email: String, password: String) = repository.login(email, password)
+    fun login(email: String, password: String) =
+        LiveDataReactiveStreams.fromPublisher(authUseCase.login(email, password))
 
-    fun saveUser(userId: String, userName: String, token: String) {
-        repository.saveUser(userId, userName, token)
-    }
+    fun saveUser(userId: String, userName: String, token: String) =
+        authUseCase.saveUser(userId, userName, token)
 }

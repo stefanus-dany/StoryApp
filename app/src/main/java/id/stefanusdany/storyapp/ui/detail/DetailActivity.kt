@@ -3,16 +3,16 @@ package id.stefanusdany.storyapp.ui.detail
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import id.stefanusdany.storyapp.R
-import id.stefanusdany.data.data.remote.response.ListStoryResponse
-import id.stefanusdany.storyapp.databinding.ActivityDetailBinding
 import id.stefanusdany.core.helper.utils.Helper
+import id.stefanusdany.domain.model.story.ListStoryModel
+import id.stefanusdany.storyapp.R
+import id.stefanusdany.storyapp.databinding.ActivityDetailBinding
 import id.stefanusdany.storyapp.ui.utils.UIHelper.loadImage
 
 class DetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailBinding
-    private lateinit var userDetail: ListStoryResponse
+    private lateinit var userDetail: ListStoryModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,7 +22,7 @@ class DetailActivity : AppCompatActivity() {
         setupView()
 
         userDetail =
-            intent.getParcelableExtra<ListStoryResponse>(Helper.EXTRA_STORY) as ListStoryResponse
+            intent.getParcelableExtra<ListStoryModel>(Helper.EXTRA_STORY) as ListStoryModel
         binding.apply {
             tvName.text = userDetail.name
             tvDesc.text = userDetail.description
