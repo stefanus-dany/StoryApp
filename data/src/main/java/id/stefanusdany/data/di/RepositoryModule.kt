@@ -5,9 +5,7 @@ import dagger.Module
 import id.stefanusdany.data.data.repository.Repository
 import id.stefanusdany.domain.repository.IRepository
 
-@Module(includes = [NetworkModule::class, StoryDatabaseModule::class,
-//    DatastoreModule::class
-])
+@Module(includes = [NetworkModule::class, StoryDatabaseModule::class])
 abstract class RepositoryModule {
 
     @Binds

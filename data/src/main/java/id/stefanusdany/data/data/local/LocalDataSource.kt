@@ -4,7 +4,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 import id.stefanusdany.data.data.local.entity.ListStoryEntity
 import id.stefanusdany.data.data.remote.response.LoginResultResponse
-import id.stefanusdany.data.model.UserPreference
+import id.stefanusdany.data.datastore.UserPreference
 import io.reactivex.Flowable
 
 @Singleton

@@ -21,8 +21,4 @@ class StoryDatabaseModule {
 
     @Provides
     fun provideListStoryDao(database: StoryDatabase): ListStoryDao= database.listStoryDao()
-
-    @Singleton
-    @Provides
-    fun provideUserPreference(context: Context) = RxPreferenceDataStoreBuilder(context, "settings").build()
 }

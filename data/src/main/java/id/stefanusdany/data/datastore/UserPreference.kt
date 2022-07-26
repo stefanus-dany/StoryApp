@@ -1,4 +1,4 @@
-package id.stefanusdany.data.model
+package id.stefanusdany.data.datastore
 
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -13,9 +13,10 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @Singleton
-class UserPreference @Inject constructor(private val dataStore: RxDataStore<Preferences>) {
+class UserPreference @Inject constructor(private val dataStore: RxDataStore<Preferences>) :
+    IUserPreference {
 
-    fun getUserInfo(): Flowable<LoginResultResponse> {
+    override fun getUserInfo(): Flowable<LoginResultResponse> {
         return dataStore.data().map { preferences ->
             LoginResultResponse(
                 preferences[USER_ID] ?: "",
@@ -25,7 +26,7 @@ class UserPreference @Inject constructor(private val dataStore: RxDataStore<Pref
         }
     }
 
-    fun login(userId: String, userName: String, token: String) {
+    override fun login(userId: String, userName: String, token: String) {
         dataStore.updateDataAsync { prefsIn: Preferences ->
             val mutablePreferences = prefsIn.toMutablePreferences()
             mutablePreferences[STATE_KEY] = true
@@ -38,7 +39,7 @@ class UserPreference @Inject constructor(private val dataStore: RxDataStore<Pref
         }
     }
 
-    fun logout() {
+    override fun logout() {
         dataStore.updateDataAsync { prefsIn: Preferences ->
             val mutablePreferences = prefsIn.toMutablePreferences()
             mutablePreferences[STATE_KEY] = false
