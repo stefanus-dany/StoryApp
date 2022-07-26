@@ -1,11 +1,14 @@
 package id.stefanusdany.data.data.local
 
+import javax.inject.Inject
+import javax.inject.Singleton
 import id.stefanusdany.data.data.local.entity.ListStoryEntity
 import id.stefanusdany.data.data.remote.response.LoginResultResponse
-import id.stefanusdany.data.model.UserPreference
+import id.stefanusdany.data.datastore.UserPreference
 import io.reactivex.Flowable
 
-class LocalDataSource private constructor(
+@Singleton
+class LocalDataSource @Inject constructor(
     private val listStoryDao: ListStoryDao,
     private val pref: UserPreference
 ) {
@@ -23,16 +26,16 @@ class LocalDataSource private constructor(
 
     fun getUserInfo(): Flowable<LoginResultResponse> = pref.getUserInfo()
 
-    companion object {
-        @Volatile
-        private var instance: LocalDataSource? = null
-
-        fun getInstance(
-            listStoryDao: ListStoryDao,
-            userPreference: UserPreference
-        ): LocalDataSource =
-            instance ?: synchronized(this) {
-                instance ?: LocalDataSource(listStoryDao, userPreference)
-            }
-    }
+//    companion object {
+//        @Volatile
+//        private var instance: LocalDataSource? = null
+//
+//        fun getInstance(
+//            listStoryDao: ListStoryDao,
+//            userPreference: UserPreference
+//        ): LocalDataSource =
+//            instance ?: synchronized(this) {
+//                instance ?: LocalDataSource(listStoryDao, userPreference)
+//            }
+//    }
 }

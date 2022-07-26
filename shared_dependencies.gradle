@@ -1,15 +1,20 @@
 dependencies {
-    implementation 'androidx.core:core-ktx:1.8.0'
-    implementation 'androidx.appcompat:appcompat:1.4.2'
-    implementation 'com.google.android.material:material:1.6.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation "androidx.datastore:datastore-preferences:1.0.0"
-    implementation("androidx.datastore:datastore-preferences:1.0.0")
+    implementation "androidx.core:core-ktx:$core_version"
+    implementation "androidx.appcompat:appcompat:$appcompat_version"
+    implementation "com.google.android.material:material:$material_version"
+    implementation "androidx.constraintlayout:constraintlayout:$constraint_layout_version"
+    implementation "androidx.datastore:datastore-preferences:$datastore_version"
+
     // optional - RxJava2 support
-    implementation("androidx.datastore:datastore-preferences-rxjava2:1.0.0")
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.0"
-    implementation 'androidx.activity:activity-ktx:1.5.0'
+    implementation "androidx.datastore:datastore-preferences-rxjava2:$datastore_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+
+    //by viewModels di Activity dan Fragment
+    implementation "androidx.activity:activity-ktx:$activity_version"
+    implementation "androidx.fragment:fragment-ktx:$fragment_version"
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     // testing
     testImplementation "androidx.arch.core:core-testing:2.1.0" // InstantTaskExecutorRule

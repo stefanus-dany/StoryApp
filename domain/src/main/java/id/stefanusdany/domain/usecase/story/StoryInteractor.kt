@@ -1,6 +1,7 @@
 package id.stefanusdany.domain.usecase.story
 
 import java.io.File
+import javax.inject.Inject
 import id.stefanusdany.core.helper.utils.Result
 import id.stefanusdany.domain.model.story.FileUploadModel
 import id.stefanusdany.domain.model.story.ListStoryModel
@@ -8,7 +9,7 @@ import id.stefanusdany.domain.model.story.StoryModel
 import id.stefanusdany.domain.repository.IRepository
 import io.reactivex.Flowable
 
-class StoryInteractor(private val repository: IRepository) : StoryUseCase {
+class StoryInteractor @Inject constructor(private val repository: IRepository) : StoryUseCase {
     override fun getAllStories(token: String): Flowable<Result<List<ListStoryModel>>> =
         repository.getAllStories(token)
 

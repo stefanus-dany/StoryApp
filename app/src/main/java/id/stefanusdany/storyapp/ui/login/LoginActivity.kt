@@ -5,11 +5,12 @@ import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import dagger.hilt.android.AndroidEntryPoint
 import id.stefanusdany.core.helper.utils.Result
 import id.stefanusdany.storyapp.R
 import id.stefanusdany.storyapp.databinding.ActivityLoginBinding
-import id.stefanusdany.storyapp.ui.ViewModelFactory
 import id.stefanusdany.storyapp.ui.homepage.MainActivity
 import id.stefanusdany.storyapp.ui.register.RegisterActivity
 import id.stefanusdany.storyapp.ui.utils.UIHelper
@@ -18,28 +19,22 @@ import id.stefanusdany.storyapp.ui.utils.UIHelper.gone
 import id.stefanusdany.storyapp.ui.utils.UIHelper.setViewAnimation
 import id.stefanusdany.storyapp.ui.utils.UIHelper.visible
 
+@AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
-    private lateinit var loginViewModel: LoginViewModel
+    private val loginViewModel: LoginViewModel by viewModels()
     private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         setupView()
-        setupViewModel()
         setupAction()
         playAnimation()
     }
 
     private fun setupView() {
         supportActionBar?.hide()
-    }
-
-    private fun setupViewModel() {
-        val factory: ViewModelFactory = ViewModelFactory.getInstance(this)
-        loginViewModel = factory.create(LoginViewModel::class.java)
     }
 
     private fun setupAction() {

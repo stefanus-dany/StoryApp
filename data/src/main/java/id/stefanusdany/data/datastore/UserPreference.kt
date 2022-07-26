@@ -1,5 +1,7 @@
-package id.stefanusdany.data.model
+package id.stefanusdany.data.datastore
 
+import javax.inject.Inject
+import javax.inject.Singleton
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
@@ -10,9 +12,11 @@ import io.reactivex.Single
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class UserPreference private constructor(private val dataStore: RxDataStore<Preferences>) {
+@Singleton
+class UserPreference @Inject constructor(private val dataStore: RxDataStore<Preferences>) :
+    IUserPreference {
 
-    fun getUserInfo(): Flowable<LoginResultResponse> {
+    override fun getUserInfo(): Flowable<LoginResultResponse> {
         return dataStore.data().map { preferences ->
             LoginResultResponse(
                 preferences[USER_ID] ?: "",
@@ -22,7 +26,7 @@ class UserPreference private constructor(private val dataStore: RxDataStore<Pref
         }
     }
 
-    fun login(userId: String, userName: String, token: String) {
+    override fun login(userId: String, userName: String, token: String) {
         dataStore.updateDataAsync { prefsIn: Preferences ->
             val mutablePreferences = prefsIn.toMutablePreferences()
             mutablePreferences[STATE_KEY] = true
@@ -35,7 +39,7 @@ class UserPreference private constructor(private val dataStore: RxDataStore<Pref
         }
     }
 
-    fun logout() {
+    override fun logout() {
         dataStore.updateDataAsync { prefsIn: Preferences ->
             val mutablePreferences = prefsIn.toMutablePreferences()
             mutablePreferences[STATE_KEY] = false
@@ -57,12 +61,12 @@ class UserPreference private constructor(private val dataStore: RxDataStore<Pref
         private val USER_NAME = stringPreferencesKey("user_name")
         private val TOKEN = stringPreferencesKey("token")
 
-        fun getInstance(dataStore: RxDataStore<Preferences>): UserPreference {
-            return INSTANCE ?: synchronized(this) {
-                val instance = UserPreference(dataStore)
-                INSTANCE = instance
-                instance
-            }
-        }
+//        fun getInstance(dataStore: RxDataStore<Preferences>): UserPreference {
+//            return INSTANCE ?: synchronized(this) {
+//                val instance = UserPreference(dataStore)
+//                INSTANCE = instance
+//                instance
+//            }
+//        }
     }
 }

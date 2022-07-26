@@ -7,14 +7,15 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import id.stefanusdany.core.helper.utils.Helper
 import id.stefanusdany.core.helper.utils.Result
 import id.stefanusdany.domain.model.auth.LoginResultModel
 import id.stefanusdany.storyapp.R
 import id.stefanusdany.storyapp.databinding.ActivityMainBinding
-import id.stefanusdany.storyapp.ui.ViewModelFactory
 import id.stefanusdany.storyapp.ui.addStory.AddStoryActivity
 import id.stefanusdany.storyapp.ui.detail.DetailActivity
 import id.stefanusdany.storyapp.ui.login.LoginActivity
@@ -23,19 +24,17 @@ import id.stefanusdany.storyapp.ui.utils.UIHelper.gone
 import id.stefanusdany.storyapp.ui.utils.UIHelper.showSnackBar
 import id.stefanusdany.storyapp.ui.utils.UIHelper.visible
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityMainBinding
-    private lateinit var mainViewModel: MainViewModel
+    private val mainViewModel: MainViewModel by viewModels()
     private lateinit var adapter: MainAdapter
     private var userInfo: LoginResultModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-
         supportActionBar?.hide()
-        setupViewModel()
         isLogin()
     }
 
@@ -68,11 +67,6 @@ class MainActivity : AppCompatActivity() {
             binding.progressBar.gone()
         }
 
-    }
-
-    private fun setupViewModel() {
-        val factory: ViewModelFactory = ViewModelFactory.getInstance(this)
-        mainViewModel = factory.create(MainViewModel::class.java)
     }
 
     private fun setupRVAdapter() {
@@ -115,12 +109,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            result: ActivityResult ->
-        if (result.resultCode == Helper.RESULT_SUCCESS) {
-            getAllStories()
+    private val startForResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            if (result.resultCode == Helper.RESULT_SUCCESS) {
+                getAllStories()
+            }
         }
-    }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu, menu)

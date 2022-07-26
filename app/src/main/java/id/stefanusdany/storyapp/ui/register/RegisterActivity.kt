@@ -5,11 +5,12 @@ import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import dagger.hilt.android.AndroidEntryPoint
 import id.stefanusdany.core.helper.utils.Result
 import id.stefanusdany.storyapp.R
 import id.stefanusdany.storyapp.databinding.ActivityRegisterBinding
-import id.stefanusdany.storyapp.ui.ViewModelFactory
 import id.stefanusdany.storyapp.ui.login.LoginActivity
 import id.stefanusdany.storyapp.ui.utils.UIHelper
 import id.stefanusdany.storyapp.ui.utils.UIHelper.getTextViewString
@@ -17,10 +18,11 @@ import id.stefanusdany.storyapp.ui.utils.UIHelper.gone
 import id.stefanusdany.storyapp.ui.utils.UIHelper.setViewAnimation
 import id.stefanusdany.storyapp.ui.utils.UIHelper.visible
 
+@AndroidEntryPoint
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
-    private lateinit var registerViewModel: RegisterViewModel
+    private val registerViewModel: RegisterViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +30,6 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupView()
-        setupViewModel()
         setupAction()
         playAnimation()
     }
@@ -66,11 +67,6 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun setupView() {
         supportActionBar?.hide()
-    }
-
-    private fun setupViewModel() {
-        val factory: ViewModelFactory = ViewModelFactory.getInstance(this)
-        registerViewModel = factory.create(RegisterViewModel::class.java)
     }
 
     private fun setupAction() {
