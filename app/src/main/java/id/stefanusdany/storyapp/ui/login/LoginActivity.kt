@@ -1,6 +1,5 @@
 package id.stefanusdany.storyapp.ui.login
 
-import javax.inject.Inject
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Intent
@@ -8,11 +7,10 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import dagger.hilt.android.AndroidEntryPoint
 import id.stefanusdany.core.helper.utils.Result
-import id.stefanusdany.storyapp.MyApplication
 import id.stefanusdany.storyapp.R
 import id.stefanusdany.storyapp.databinding.ActivityLoginBinding
-import id.stefanusdany.storyapp.ui.ViewModelFactory
 import id.stefanusdany.storyapp.ui.homepage.MainActivity
 import id.stefanusdany.storyapp.ui.register.RegisterActivity
 import id.stefanusdany.storyapp.ui.utils.UIHelper
@@ -21,16 +19,12 @@ import id.stefanusdany.storyapp.ui.utils.UIHelper.gone
 import id.stefanusdany.storyapp.ui.utils.UIHelper.setViewAnimation
 import id.stefanusdany.storyapp.ui.utils.UIHelper.visible
 
+@AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
-    @Inject
-    lateinit var factory: ViewModelFactory
-    private val loginViewModel: LoginViewModel by viewModels {
-        factory
-    }
+    private val loginViewModel: LoginViewModel by viewModels()
     private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        (application as MyApplication).appComponent.inject(this)
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)

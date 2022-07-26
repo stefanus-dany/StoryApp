@@ -1,6 +1,5 @@
 package id.stefanusdany.storyapp.ui.maps
 
-import javax.inject.Inject
 import android.content.res.Resources
 import android.os.Bundle
 import android.util.Log
@@ -15,27 +14,21 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
+import dagger.hilt.android.AndroidEntryPoint
 import id.stefanusdany.core.helper.utils.Helper.TAG
 import id.stefanusdany.core.helper.utils.Result
-import id.stefanusdany.storyapp.MyApplication
 import id.stefanusdany.storyapp.R
 import id.stefanusdany.storyapp.databinding.ActivityMapsBinding
-import id.stefanusdany.storyapp.ui.ViewModelFactory
 import id.stefanusdany.storyapp.ui.utils.UIHelper.showSnackBar
 
+@AndroidEntryPoint
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
-
-    @Inject
-    lateinit var factory: ViewModelFactory
-    private val mapsViewModel: MapsViewModel by viewModels {
-        factory
-    }
+    private val mapsViewModel: MapsViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        (application as MyApplication).appComponent.inject(this)
         super.onCreate(savedInstanceState)
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)

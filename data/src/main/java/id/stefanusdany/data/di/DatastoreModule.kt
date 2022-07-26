@@ -6,10 +6,14 @@ import androidx.datastore.preferences.rxjava2.RxPreferenceDataStoreBuilder
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import id.stefanusdany.data.datastore.IUserPreference
 import id.stefanusdany.data.datastore.UserPreference
 
-@Module(includes = [Datastore::class])
+@Module
+@InstallIn(SingletonComponent::class)
 abstract class DatastoreModule {
 
     @Binds
@@ -17,10 +21,11 @@ abstract class DatastoreModule {
 }
 
 @Module
+@InstallIn(SingletonComponent::class)
 class Datastore {
 
     @Singleton
     @Provides
-    fun provideUserPreference(context: Context) =
+    fun provideUserPreference(@ApplicationContext context: Context) =
         RxPreferenceDataStoreBuilder(context, "settings").build()
 }

@@ -1,7 +1,6 @@
 package id.stefanusdany.storyapp.ui.addStory
 
 import java.io.File
-import javax.inject.Inject
 import android.Manifest
 import android.content.Intent
 import android.content.Intent.ACTION_GET_CONTENT
@@ -20,37 +19,30 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import dagger.hilt.android.AndroidEntryPoint
 import id.stefanusdany.core.helper.utils.Helper
 import id.stefanusdany.core.helper.utils.Result
 import id.stefanusdany.core.helper.utils.createTempFile
 import id.stefanusdany.core.helper.utils.reduceFileImage
 import id.stefanusdany.core.helper.utils.uriToFile
-import id.stefanusdany.storyapp.MyApplication
 import id.stefanusdany.storyapp.R
 import id.stefanusdany.storyapp.databinding.ActivityAddStoryBinding
-import id.stefanusdany.storyapp.ui.ViewModelFactory
 import id.stefanusdany.storyapp.ui.utils.UIHelper.getTextViewString
 import id.stefanusdany.storyapp.ui.utils.UIHelper.gone
 import id.stefanusdany.storyapp.ui.utils.UIHelper.showDialog
 import id.stefanusdany.storyapp.ui.utils.UIHelper.showSnackBar
 import id.stefanusdany.storyapp.ui.utils.UIHelper.visible
 
+@AndroidEntryPoint
 class AddStoryActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddStoryBinding
-    @Inject
-    lateinit var factory: ViewModelFactory
-    private val addStoryViewModel: AddStoryViewModel by viewModels {
-        factory
-    }
-
+    private val addStoryViewModel: AddStoryViewModel by viewModels()
     private var userToken: String? = null
-
     private var getFile: File? = null
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private var lat = DEFAULT_LAT_LONG
     private var long = DEFAULT_LAT_LONG
-
     private lateinit var currentPhotoPath: String
     private val launcherIntentCamera = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
@@ -80,7 +72,6 @@ class AddStoryActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        (application as MyApplication).appComponent.inject(this)
         super.onCreate(savedInstanceState)
         binding = ActivityAddStoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
