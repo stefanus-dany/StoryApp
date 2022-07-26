@@ -1,6 +1,7 @@
 package id.stefanusdany.storyapp.ui.homepage
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
 import android.view.Menu
@@ -23,6 +24,7 @@ import id.stefanusdany.storyapp.ui.maps.MapsActivity
 import id.stefanusdany.storyapp.ui.utils.UIHelper.gone
 import id.stefanusdany.storyapp.ui.utils.UIHelper.showSnackBar
 import id.stefanusdany.storyapp.ui.utils.UIHelper.visible
+import id.stefanusdany.storyapp.ui.utils.observeOnce
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -34,7 +36,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        supportActionBar?.hide()
         isLogin()
     }
 
@@ -44,9 +45,13 @@ class MainActivity : AppCompatActivity() {
                 .observe(this) { listStory ->
                     binding.apply {
                         when (listStory) {
-                            is Result.Loading -> progressBar.visible()
+                            is Result.Loading -> {
+                                progressBar.visible()
+                                rvMain.gone()
+                            }
                             is Result.Error -> {
                                 showSnackBar(root, listStory.error)
+                                rvMain.gone()
                                 progressBar.gone()
                             }
                             is Result.Success -> {
@@ -55,6 +60,7 @@ class MainActivity : AppCompatActivity() {
                                     adapter = this@MainActivity.adapter
                                     setHasFixedSize(true)
                                 }
+                                rvMain.visible()
                                 tvEmpty.gone()
                                 adapter.setData(listStory.data)
                                 progressBar.gone()
@@ -80,7 +86,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun isLogin() {
-        mainViewModel.getUserInfo().observe(this) {
+        mainViewModel.getUserInfo().observeOnce(this) {
             userInfo = it
             if (userInfo == null || userInfo?.token == "") {
                 val move = Intent(this, LoginActivity::class.java)
@@ -97,7 +103,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupView() {
-        supportActionBar?.show()
         setContentView(binding.root)
     }
 
@@ -123,6 +128,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+            R.id.menu_favorite -> {
+                val uri = Uri.parse("storyapp://favorite")
+                startActivity(Intent(Intent.ACTION_VIEW, uri))
+                true
+            }
             R.id.menu_language -> {
                 startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
                 true

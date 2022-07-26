@@ -10,5 +10,5 @@ data class LoginResultResponse(
     val name: String,
 
     @SerializedName("token")
-    val token: String,
+    val token: String
 )

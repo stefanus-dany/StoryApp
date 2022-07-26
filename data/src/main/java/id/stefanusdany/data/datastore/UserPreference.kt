@@ -53,20 +53,9 @@ class UserPreference @Inject constructor(private val dataStore: RxDataStore<Pref
     }
 
     companion object {
-        @Volatile
-        private var INSTANCE: UserPreference? = null
-
         private val STATE_KEY = booleanPreferencesKey("state")
         private val USER_ID = stringPreferencesKey("user_id")
         private val USER_NAME = stringPreferencesKey("user_name")
         private val TOKEN = stringPreferencesKey("token")
-
-//        fun getInstance(dataStore: RxDataStore<Preferences>): UserPreference {
-//            return INSTANCE ?: synchronized(this) {
-//                val instance = UserPreference(dataStore)
-//                INSTANCE = instance
-//                instance
-//            }
-//        }
     }
 }

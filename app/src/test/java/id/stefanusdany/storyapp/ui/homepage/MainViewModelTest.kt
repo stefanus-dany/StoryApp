@@ -35,7 +35,7 @@
 //    var mainCoroutineRules = MainCoroutineRule()
 //
 //    @Mock
-//    private lateinit var mainViewModel: MainViewModel
+//    private lateinit var mainViewModel: DetailViewModel
 //
 //    private val dummyUserInfo = DataDummy.generateDummyUserInfoResponse()
 //    private val dummyLogout = DataDummy.generateLogoutResponse()

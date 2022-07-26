@@ -16,6 +16,12 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
+    // hilt
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hilt_jetpack_version"
+    kapt "androidx.hilt:hilt-compiler:$hilt_jetpack_version"
+
     // testing
     testImplementation "androidx.arch.core:core-testing:2.1.0" // InstantTaskExecutorRule
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1" //main coroutine rule

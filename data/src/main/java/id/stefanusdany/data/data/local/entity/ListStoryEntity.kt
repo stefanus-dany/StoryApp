@@ -26,5 +26,8 @@ data class ListStoryEntity(
     val lat: Double,
 
     @ColumnInfo(name = "lon")
-    val lon: Double
+    val lon: Double,
+
+    @ColumnInfo(name = "isFavorite")
+    var isFavorite: Boolean = false
 )

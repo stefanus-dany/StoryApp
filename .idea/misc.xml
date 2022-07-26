@@ -4,13 +4,17 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/User/AndroidStudioProjects/Menjadi Android Developer Expert/Submission 1/StoryApp/app/src/main/res/layout/activity_add_story.xml" value="0.2" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Menjadi Android Developer Expert/Submission 1/StoryApp/app/src/main/res/layout/activity_detail.xml" value="0.2" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Menjadi Android Developer Expert/Submission 1/StoryApp/app/src/main/res/layout/activity_login.xml" value="0.2" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Menjadi Android Developer Expert/Submission 1/StoryApp/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Menjadi Android Developer Expert/Submission 1/StoryApp/app/src/main/res/layout/activity_maps.xml" value="0.2" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Menjadi Android Developer Expert/Submission 1/StoryApp/app/src/main/res/layout/activity_register.xml" value="0.2" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Menjadi Android Developer Expert/Submission 1/StoryApp/app/src/main/res/layout/item_loading.xml" value="0.2" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Menjadi Android Developer Expert/Submission 1/StoryApp/app/src/main/res/layout/item_story.xml" value="0.2" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Menjadi Android Developer Expert/Submission 1/StoryApp/app/src/main/res/menu/menu.xml" value="0.2" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Menjadi Android Developer Expert/Submission 1/StoryApp/core/src/main/res/drawable/ic_favorite_white.xml" value="0.155" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Menjadi Android Developer Expert/Submission 1/StoryApp/core/src/main/res/layout/item_loading.xml" value="0.2" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Menjadi Android Developer Expert/Submission 1/StoryApp/favorite/src/main/res/layout/activity_favorite.xml" value="0.2" />
       </map>
     </option>
   </component>

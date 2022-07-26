@@ -2,7 +2,6 @@ package id.stefanusdany.data.di
 
 import javax.inject.Singleton
 import android.content.Context
-import androidx.datastore.preferences.rxjava2.RxPreferenceDataStoreBuilder
 import androidx.room.Room
 import dagger.Module
 import dagger.Provides
@@ -19,10 +18,14 @@ class StoryDatabaseModule {
     @Singleton
     @Provides
     fun provideDatabase(@ApplicationContext context: Context): StoryDatabase =
-        Room.databaseBuilder(context.applicationContext, StoryDatabase::class.java, "story_database.db")
+        Room.databaseBuilder(
+            context.applicationContext,
+            StoryDatabase::class.java,
+            "story_database.db"
+        )
             .fallbackToDestructiveMigration()
             .build()
 
     @Provides
-    fun provideListStoryDao(database: StoryDatabase): ListStoryDao= database.listStoryDao()
+    fun provideListStoryDao(database: StoryDatabase): ListStoryDao = database.listStoryDao()
 }

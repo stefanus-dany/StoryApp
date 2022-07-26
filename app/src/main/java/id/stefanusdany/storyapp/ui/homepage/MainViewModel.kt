@@ -8,7 +8,10 @@ import id.stefanusdany.domain.usecase.auth.AuthUseCase
 import id.stefanusdany.domain.usecase.story.StoryUseCase
 
 @HiltViewModel
-class MainViewModel @Inject constructor(private val storyUseCase: StoryUseCase, private val authUseCase: AuthUseCase) :
+class MainViewModel @Inject constructor(
+    private val storyUseCase: StoryUseCase,
+    private val authUseCase: AuthUseCase
+) :
     ViewModel() {
 
     fun getUserInfo() = LiveDataReactiveStreams.fromPublisher(authUseCase.getUserInfo())

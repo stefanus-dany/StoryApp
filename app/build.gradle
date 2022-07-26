@@ -39,13 +39,14 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    dynamicFeatures = []
+    dynamicFeatures = [':favorite']
 }
 
 dependencies {
 
     // for glide
     implementation "com.github.bumptech.glide:glide:$glide_version"
+
     implementation "com.google.android.gms:play-services-maps:$maps_version"
 
     // for camera
@@ -65,7 +66,4 @@ dependencies {
     implementation project(domain)
     implementation project(data)
 
-    // hilt
-    implementation "com.google.dagger:hilt-android:$hilt_version"
-    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
 }

@@ -1,8 +1,8 @@
 package id.stefanusdany.data.data
 
 import android.annotation.SuppressLint
-import id.stefanusdany.data.data.remote.ApiResponse
 import id.stefanusdany.core.helper.utils.Result
+import id.stefanusdany.data.data.remote.ApiResponse
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers

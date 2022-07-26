@@ -25,4 +25,8 @@ class StoryInteractor @Inject constructor(private val repository: IRepository) :
     ): Flowable<Result<FileUploadModel>> =
         repository.uploadStory(token, file, description, lat, lon)
 
+    override fun getFavoriteStory(): Flowable<List<ListStoryModel>> = repository.getFavoriteStory()
+
+    override fun setFavoriteStory(story: ListStoryModel, newState: Boolean) =
+        repository.setFavoriteStory(story, newState)
 }
