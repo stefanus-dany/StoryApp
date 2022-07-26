@@ -3,7 +3,6 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-parcelize'
     id 'kotlin-kapt'
-    id 'dagger.hilt.android.plugin'
 }
 
 apply from: '../shared_dependencies.gradle'
@@ -59,7 +58,4 @@ dependencies {
     implementation project(core)
     implementation project(domain)
 
-    // hilt
-    implementation "com.google.dagger:hilt-android:$hilt_version"
-    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
 }

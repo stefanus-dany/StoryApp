@@ -38,4 +38,8 @@ interface IRepository {
         lon: Float
     ): Flowable<Result<FileUploadModel>>
 
+    fun getFavoriteStory(): Flowable<List<ListStoryModel>>
+
+    fun setFavoriteStory(story: ListStoryModel, newState: Boolean)
+
 }

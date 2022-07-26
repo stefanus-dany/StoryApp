@@ -11,5 +11,6 @@ data class ListStoryModel(
     val photoUrl: String,
     val createdAt: String,
     val lat: Double,
-    val lon: Double
+    val lon: Double,
+    val isFavorite: Boolean
 ) : Parcelable

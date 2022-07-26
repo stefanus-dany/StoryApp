@@ -128,13 +128,5 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
         private const val TEXT_FILE = "text/plain"
         private const val IMAGE_FILE = "image/jpeg"
         private const val PHOTO_FILE = "photo"
-
-//        @Volatile
-//        private var instance: RemoteDataSource? = null
-//
-//        fun getInstance(service: ApiService): RemoteDataSource =
-//            instance ?: synchronized(this) {
-//                instance ?: RemoteDataSource(service)
-//            }
     }
 }

@@ -23,8 +23,10 @@ buildscript {
     ext.retrofit_version = "2.9.0"
     ext.okhttp_version = "5.0.0-alpha.6"
     ext.hilt_version = '2.40.5'
+    ext.hilt_jetpack_version = '1.0.0-alpha03'
 
     // project
+    ext.app = ":app"
     ext.core = ":core"
     ext.domain = ":domain"
     ext.data = ":data"

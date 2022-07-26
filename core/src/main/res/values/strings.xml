@@ -5,4 +5,5 @@
     <string name="password_less_than_six_char">Password less than 6 character</string>
     <string name="insert_password">Insert password</string>
     <string name="retry">Retry</string>
+    <string name="favorite">Favorite</string>
 </resources>

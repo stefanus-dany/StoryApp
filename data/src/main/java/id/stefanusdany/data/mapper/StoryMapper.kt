@@ -21,7 +21,8 @@ object StoryMapper {
                     photoUrl = entities.photoUrl,
                     createdAt = entities.createdAt,
                     lat = entities.lat,
-                    lon = entities.lon
+                    lon = entities.lon,
+                    isFavorite = entities.isFavorite
                 )
             )
         }
@@ -46,6 +47,19 @@ object StoryMapper {
         return listStoryEntity
     }
 
+    fun mapStoryModelToEntity(input: ListStoryModel): ListStoryEntity {
+        return ListStoryEntity(
+            id = input.id,
+            name = input.name,
+            description = input.description,
+            photoUrl = input.photoUrl,
+            createdAt = input.createdAt,
+            lat = input.lat,
+            lon = input.lon,
+            isFavorite = input.isFavorite
+        )
+    }
+
     private fun mapListStoryResponseToModel(input: List<ListStoryResponse>): List<ListStoryModel> {
         val listStoryModel = ArrayList<ListStoryModel>()
         input.map { entities ->
@@ -57,7 +71,8 @@ object StoryMapper {
                     photoUrl = entities.photoUrl,
                     createdAt = entities.createdAt,
                     lat = entities.lat,
-                    lon = entities.lon
+                    lon = entities.lon,
+                    isFavorite = false
                 )
             )
         }

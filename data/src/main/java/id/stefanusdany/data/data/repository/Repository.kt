@@ -5,6 +5,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 import android.annotation.SuppressLint
 import id.stefanusdany.core.helper.utils.AppExecutors
+import id.stefanusdany.core.helper.utils.Result
 import id.stefanusdany.data.data.NetworkBoundResource
 import id.stefanusdany.data.data.local.LocalDataSource
 import id.stefanusdany.data.data.remote.ApiResponse
@@ -14,7 +15,6 @@ import id.stefanusdany.data.mapper.AuthMapper
 import id.stefanusdany.data.mapper.StoryMapper
 import id.stefanusdany.data.mapper.StoryMapper.fromFileUploadResponseToModel
 import id.stefanusdany.data.mapper.StoryMapper.fromStoryResponseToModel
-import id.stefanusdany.core.helper.utils.Result
 import id.stefanusdany.domain.model.auth.LoginModel
 import id.stefanusdany.domain.model.auth.LoginResultModel
 import id.stefanusdany.domain.model.auth.RegisterModel
@@ -165,17 +165,13 @@ class Repository @Inject constructor(
 
     }
 
-//    companion object {
-//
-//        @Volatile
-//        private var instance: Repository? = null
-//        fun getInstance(
-//            localDataSource: LocalDataSource,
-//            remoteDataSource: RemoteDataSource,
-//            appExecutors: AppExecutors
-//        ): Repository =
-//            instance ?: synchronized(this) {
-//                instance ?: Repository(localDataSource, remoteDataSource, appExecutors)
-//            }.also { instance = it }
-//    }
+    override fun getFavoriteStory(): Flowable<List<ListStoryModel>> =
+        localDataSource.getFavoriteStory().map {
+            StoryMapper.mapListStoryEntityToModel(it)
+        }
+
+    override fun setFavoriteStory(story: ListStoryModel, newState: Boolean) =
+        appExecutors.diskIO().execute {
+            localDataSource.setFavoriteStory(StoryMapper.mapStoryModelToEntity(story), newState)
+        }
 }

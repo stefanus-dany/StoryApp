@@ -26,16 +26,10 @@ class LocalDataSource @Inject constructor(
 
     fun getUserInfo(): Flowable<LoginResultResponse> = pref.getUserInfo()
 
-//    companion object {
-//        @Volatile
-//        private var instance: LocalDataSource? = null
-//
-//        fun getInstance(
-//            listStoryDao: ListStoryDao,
-//            userPreference: UserPreference
-//        ): LocalDataSource =
-//            instance ?: synchronized(this) {
-//                instance ?: LocalDataSource(listStoryDao, userPreference)
-//            }
-//    }
+    fun getFavoriteStory(): Flowable<List<ListStoryEntity>> = listStoryDao.getFavoriteStory()
+
+    fun setFavoriteStory(story: ListStoryEntity, newState: Boolean) {
+        story.isFavorite = newState
+        listStoryDao.updateFavoriteStory(story)
+    }
 }
