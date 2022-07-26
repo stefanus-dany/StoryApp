@@ -1,6 +1,7 @@
 package id.stefanusdany.storyapp.ui.addStory
 
 import java.io.File
+import javax.inject.Inject
 import android.Manifest
 import android.content.Intent
 import android.content.Intent.ACTION_GET_CONTENT
@@ -12,6 +13,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.view.MenuItem
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -23,6 +25,7 @@ import id.stefanusdany.core.helper.utils.Result
 import id.stefanusdany.core.helper.utils.createTempFile
 import id.stefanusdany.core.helper.utils.reduceFileImage
 import id.stefanusdany.core.helper.utils.uriToFile
+import id.stefanusdany.storyapp.MyApplication
 import id.stefanusdany.storyapp.R
 import id.stefanusdany.storyapp.databinding.ActivityAddStoryBinding
 import id.stefanusdany.storyapp.ui.ViewModelFactory
@@ -35,7 +38,11 @@ import id.stefanusdany.storyapp.ui.utils.UIHelper.visible
 class AddStoryActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddStoryBinding
-    private lateinit var addStoryViewModel: AddStoryViewModel
+    @Inject
+    lateinit var factory: ViewModelFactory
+    private val addStoryViewModel: AddStoryViewModel by viewModels {
+        factory
+    }
 
     private var userToken: String? = null
 
@@ -73,13 +80,13 @@ class AddStoryActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        (application as MyApplication).appComponent.inject(this)
         super.onCreate(savedInstanceState)
         binding = ActivityAddStoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
         userToken = intent.getStringExtra(Helper.EXTRA_TOKEN)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         setupView()
-        setupViewModel()
         setupAction()
     }
 
@@ -88,11 +95,6 @@ class AddStoryActivity : AppCompatActivity() {
             this?.setDisplayHomeAsUpEnabled(true)
             title = getString(R.string.title_add_story)
         }
-    }
-
-    private fun setupViewModel() {
-        val factory = ViewModelFactory.getInstance(this)
-        addStoryViewModel = factory.create(AddStoryViewModel::class.java)
     }
 
     private fun requestCameraAndGalleryPermission() {

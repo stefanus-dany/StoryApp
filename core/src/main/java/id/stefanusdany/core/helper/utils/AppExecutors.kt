@@ -2,6 +2,7 @@ package id.stefanusdany.core.helper.utils
 
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
+import javax.inject.Inject
 import android.os.Handler
 import android.os.Looper
 import androidx.annotation.VisibleForTesting
@@ -16,6 +17,7 @@ class AppExecutors @VisibleForTesting constructor(
         private const val THREAD_COUNT = 3
     }
 
+    @Inject
     constructor() : this(
         Executors.newSingleThreadExecutor(),
         Executors.newFixedThreadPool(THREAD_COUNT),

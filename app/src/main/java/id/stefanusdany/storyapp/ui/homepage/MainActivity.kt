@@ -1,5 +1,6 @@
 package id.stefanusdany.storyapp.ui.homepage
 
+import javax.inject.Inject
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
@@ -7,11 +8,13 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.stefanusdany.core.helper.utils.Helper
 import id.stefanusdany.core.helper.utils.Result
 import id.stefanusdany.domain.model.auth.LoginResultModel
+import id.stefanusdany.storyapp.MyApplication
 import id.stefanusdany.storyapp.R
 import id.stefanusdany.storyapp.databinding.ActivityMainBinding
 import id.stefanusdany.storyapp.ui.ViewModelFactory
@@ -26,16 +29,20 @@ import id.stefanusdany.storyapp.ui.utils.UIHelper.visible
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var mainViewModel: MainViewModel
+
+    @Inject
+    lateinit var factory: ViewModelFactory
+    private val mainViewModel: MainViewModel by viewModels {
+        factory
+    }
     private lateinit var adapter: MainAdapter
     private var userInfo: LoginResultModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        (application as MyApplication).appComponent.inject(this)
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-
         supportActionBar?.hide()
-        setupViewModel()
         isLogin()
     }
 
@@ -68,11 +75,6 @@ class MainActivity : AppCompatActivity() {
             binding.progressBar.gone()
         }
 
-    }
-
-    private fun setupViewModel() {
-        val factory: ViewModelFactory = ViewModelFactory.getInstance(this)
-        mainViewModel = factory.create(MainViewModel::class.java)
     }
 
     private fun setupRVAdapter() {

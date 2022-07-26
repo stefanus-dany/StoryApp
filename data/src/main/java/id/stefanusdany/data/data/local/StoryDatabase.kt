@@ -15,21 +15,21 @@ abstract class StoryDatabase : RoomDatabase() {
 
     abstract fun listStoryDao(): ListStoryDao
 
-    companion object {
-        @Volatile
-        private var INSTANCE: StoryDatabase? = null
-
-        @JvmStatic
-        fun getDatabase(context: Context): StoryDatabase {
-            return INSTANCE ?: synchronized(this) {
-                INSTANCE ?: Room.databaseBuilder(
-                    context.applicationContext,
-                    StoryDatabase::class.java, "story_database.db"
-                )
-                    .fallbackToDestructiveMigration()
-                    .build()
-                    .also { INSTANCE = it }
-            }
-        }
-    }
+//    companion object {
+//        @Volatile
+//        private var INSTANCE: StoryDatabase? = null
+//
+//        @JvmStatic
+//        fun getDatabase(context: Context): StoryDatabase {
+//            return INSTANCE ?: synchronized(this) {
+//                INSTANCE ?: Room.databaseBuilder(
+//                    context.applicationContext,
+//                    StoryDatabase::class.java, "story_database.db"
+//                )
+//                    .fallbackToDestructiveMigration()
+//                    .build()
+//                    .also { INSTANCE = it }
+//            }
+//        }
+//    }
 }

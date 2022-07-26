@@ -1,12 +1,15 @@
 package id.stefanusdany.storyapp.ui.register
 
+import javax.inject.Inject
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import id.stefanusdany.core.helper.utils.Result
+import id.stefanusdany.storyapp.MyApplication
 import id.stefanusdany.storyapp.R
 import id.stefanusdany.storyapp.databinding.ActivityRegisterBinding
 import id.stefanusdany.storyapp.ui.ViewModelFactory
@@ -20,15 +23,20 @@ import id.stefanusdany.storyapp.ui.utils.UIHelper.visible
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
-    private lateinit var registerViewModel: RegisterViewModel
+
+    @Inject
+    lateinit var factory: ViewModelFactory
+    private val registerViewModel: RegisterViewModel by viewModels {
+        factory
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        (application as MyApplication).appComponent.inject(this)
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setupView()
-        setupViewModel()
         setupAction()
         playAnimation()
     }
@@ -66,11 +74,6 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun setupView() {
         supportActionBar?.hide()
-    }
-
-    private fun setupViewModel() {
-        val factory: ViewModelFactory = ViewModelFactory.getInstance(this)
-        registerViewModel = factory.create(RegisterViewModel::class.java)
     }
 
     private fun setupAction() {

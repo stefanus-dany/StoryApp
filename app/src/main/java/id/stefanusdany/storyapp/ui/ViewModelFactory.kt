@@ -1,18 +1,19 @@
 package id.stefanusdany.storyapp.ui
 
-import android.content.Context
+import javax.inject.Inject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import id.stefanusdany.domain.usecase.auth.AuthUseCase
 import id.stefanusdany.domain.usecase.story.StoryUseCase
-import id.stefanusdany.storyapp.di.Injection
+import id.stefanusdany.storyapp.di.AppScope
 import id.stefanusdany.storyapp.ui.addStory.AddStoryViewModel
 import id.stefanusdany.storyapp.ui.homepage.MainViewModel
 import id.stefanusdany.storyapp.ui.login.LoginViewModel
 import id.stefanusdany.storyapp.ui.maps.MapsViewModel
 import id.stefanusdany.storyapp.ui.register.RegisterViewModel
 
-class ViewModelFactory(
+@AppScope
+class ViewModelFactory @Inject constructor(
     private val authUseCase: AuthUseCase,
     private val storyUseCase: StoryUseCase
 ) :
@@ -40,15 +41,15 @@ class ViewModelFactory(
         }
     }
 
-    companion object {
-        @Volatile
-        private var instance: ViewModelFactory? = null
-        fun getInstance(context: Context): ViewModelFactory =
-            instance ?: synchronized(this) {
-                instance ?: ViewModelFactory(
-                    Injection.provideAuthUseCase(context),
-                    Injection.provideStoryUseCase(context)
-                )
-            }.also { instance = it }
-    }
+//    companion object {
+//        @Volatile
+//        private var instance: ViewModelFactory? = null
+//        fun getInstance(context: Context): ViewModelFactory =
+//            instance ?: synchronized(this) {
+//                instance ?: ViewModelFactory(
+//                    Injection.provideAuthUseCase(context),
+//                    Injection.provideStoryUseCase(context)
+//                )
+//            }.also { instance = it }
+//    }
 }

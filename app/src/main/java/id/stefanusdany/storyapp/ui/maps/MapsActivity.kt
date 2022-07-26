@@ -1,10 +1,12 @@
 package id.stefanusdany.storyapp.ui.maps
 
+import javax.inject.Inject
 import android.content.res.Resources
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -15,6 +17,7 @@ import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
 import id.stefanusdany.core.helper.utils.Helper.TAG
 import id.stefanusdany.core.helper.utils.Result
+import id.stefanusdany.storyapp.MyApplication
 import id.stefanusdany.storyapp.R
 import id.stefanusdany.storyapp.databinding.ActivityMapsBinding
 import id.stefanusdany.storyapp.ui.ViewModelFactory
@@ -24,11 +27,16 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
-    private lateinit var mapsViewModel: MapsViewModel
+
+    @Inject
+    lateinit var factory: ViewModelFactory
+    private val mapsViewModel: MapsViewModel by viewModels {
+        factory
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        (application as MyApplication).appComponent.inject(this)
         super.onCreate(savedInstanceState)
-
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupView()
@@ -53,13 +61,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
 
         setMapStyle()
-        setupViewModel()
         setMarker()
-    }
-
-    private fun setupViewModel() {
-        val factory: ViewModelFactory = ViewModelFactory.getInstance(this)
-        mapsViewModel = factory.create(MapsViewModel::class.java)
     }
 
     private fun setMarker() {

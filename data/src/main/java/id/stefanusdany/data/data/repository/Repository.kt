@@ -1,6 +1,8 @@
 package id.stefanusdany.data.data.repository
 
 import java.io.File
+import javax.inject.Inject
+import javax.inject.Singleton
 import android.annotation.SuppressLint
 import id.stefanusdany.core.helper.utils.AppExecutors
 import id.stefanusdany.data.data.NetworkBoundResource
@@ -27,7 +29,8 @@ import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 
 @SuppressLint("CheckResult")
-class Repository(
+@Singleton
+class Repository @Inject constructor(
     private val localDataSource: LocalDataSource,
     private val remoteDataSource: RemoteDataSource,
     private val appExecutors: AppExecutors
@@ -162,17 +165,17 @@ class Repository(
 
     }
 
-    companion object {
-
-        @Volatile
-        private var instance: Repository? = null
-        fun getInstance(
-            localDataSource: LocalDataSource,
-            remoteDataSource: RemoteDataSource,
-            appExecutors: AppExecutors
-        ): Repository =
-            instance ?: synchronized(this) {
-                instance ?: Repository(localDataSource, remoteDataSource, appExecutors)
-            }.also { instance = it }
-    }
+//    companion object {
+//
+//        @Volatile
+//        private var instance: Repository? = null
+//        fun getInstance(
+//            localDataSource: LocalDataSource,
+//            remoteDataSource: RemoteDataSource,
+//            appExecutors: AppExecutors
+//        ): Repository =
+//            instance ?: synchronized(this) {
+//                instance ?: Repository(localDataSource, remoteDataSource, appExecutors)
+//            }.also { instance = it }
+//    }
 }

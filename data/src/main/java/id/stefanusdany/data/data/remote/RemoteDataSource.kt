@@ -1,6 +1,8 @@
 package id.stefanusdany.data.data.remote
 
 import java.io.File
+import javax.inject.Inject
+import javax.inject.Singleton
 import android.annotation.SuppressLint
 import id.stefanusdany.data.data.remote.response.FileUploadResponse
 import id.stefanusdany.data.data.remote.response.ListStoryResponse
@@ -19,7 +21,8 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 
 @SuppressLint("CheckResult")
-class RemoteDataSource private constructor(private val apiService: ApiService) {
+@Singleton
+class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
 
     fun getAllStories(token: String): Flowable<ApiResponse<List<ListStoryResponse>>> {
         val resultData = PublishSubject.create<ApiResponse<List<ListStoryResponse>>>()
@@ -126,12 +129,12 @@ class RemoteDataSource private constructor(private val apiService: ApiService) {
         private const val IMAGE_FILE = "image/jpeg"
         private const val PHOTO_FILE = "photo"
 
-        @Volatile
-        private var instance: RemoteDataSource? = null
-
-        fun getInstance(service: ApiService): RemoteDataSource =
-            instance ?: synchronized(this) {
-                instance ?: RemoteDataSource(service)
-            }
+//        @Volatile
+//        private var instance: RemoteDataSource? = null
+//
+//        fun getInstance(service: ApiService): RemoteDataSource =
+//            instance ?: synchronized(this) {
+//                instance ?: RemoteDataSource(service)
+//            }
     }
 }
