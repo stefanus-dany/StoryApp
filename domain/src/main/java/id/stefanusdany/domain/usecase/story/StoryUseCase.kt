@@ -9,7 +9,7 @@ import io.reactivex.Flowable
 
 interface StoryUseCase {
 
-    fun getAllStories(token: String): Flowable<Result<List<ListStoryModel>>>
+    fun getAllStories(token: String, location: Int): Flowable<Result<List<ListStoryModel>>>
 
     fun getAllMarkerMaps(token: String, location: Int): Flowable<Result<StoryModel>>
 

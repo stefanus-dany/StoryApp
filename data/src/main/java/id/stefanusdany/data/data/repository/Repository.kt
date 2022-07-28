@@ -92,7 +92,7 @@ class Repository @Inject constructor(
         return result.toFlowable(BackpressureStrategy.BUFFER)
     }
 
-    override fun getAllStories(token: String): Flowable<Result<List<ListStoryModel>>> =
+    override fun getAllStories(token: String, location: Int): Flowable<Result<List<ListStoryModel>>> =
         object : NetworkBoundResource<List<ListStoryModel>, List<ListStoryResponse>>() {
             override fun loadFromDB(): Flowable<List<ListStoryModel>> {
                 return localDataSource.getAllStories().map {
@@ -103,7 +103,7 @@ class Repository @Inject constructor(
             override fun shouldFetch(data: List<ListStoryModel>?): Boolean = true
 
             override fun createCall(): Flowable<ApiResponse<List<ListStoryResponse>>> =
-                remoteDataSource.getAllStories(token)
+                remoteDataSource.getAllStories(token, location)
 
             override fun saveCallResult(data: List<ListStoryResponse>) {
                 localDataSource.deleteAll()

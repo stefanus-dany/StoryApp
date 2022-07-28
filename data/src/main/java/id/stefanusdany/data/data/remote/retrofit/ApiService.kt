@@ -18,13 +18,9 @@ import retrofit2.http.Part
 import retrofit2.http.Query
 
 interface ApiService {
-    @GET("stories")
-    fun getAllStories(
-        @Header("Authorization") token: String,
-    ): Flowable<StoryResponse>
 
     @GET("stories")
-    fun getAllMarkerMaps(
+    fun getAllStories(
         @Header("Authorization") token: String,
         @Query("location") location: Int
     ): Flowable<StoryResponse>

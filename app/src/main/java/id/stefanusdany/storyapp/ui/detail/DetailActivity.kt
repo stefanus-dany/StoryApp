@@ -5,6 +5,12 @@ import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import dagger.hilt.android.AndroidEntryPoint
 import id.stefanusdany.core.helper.utils.Helper
 import id.stefanusdany.domain.model.story.ListStoryModel
@@ -13,8 +19,9 @@ import id.stefanusdany.storyapp.databinding.ActivityDetailBinding
 import id.stefanusdany.storyapp.ui.utils.UIHelper.loadImage
 
 @AndroidEntryPoint
-class DetailActivity : AppCompatActivity() {
+class DetailActivity : AppCompatActivity(), OnMapReadyCallback {
 
+    private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityDetailBinding
     private lateinit var userDetail: ListStoryModel
     private val detailViewModel: DetailViewModel by viewModels()
@@ -23,7 +30,6 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         setupView()
 
         userDetail =
@@ -43,8 +49,45 @@ class DetailActivity : AppCompatActivity() {
                     setStatusFavorite(statusFavorite)
                 }
             }
+            setupMapFragment()
         }
 
+    }
+
+    private fun setupMapFragment() {
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        val mapFragment = supportFragmentManager
+            .findFragmentById(R.id.map) as SupportMapFragment
+        mapFragment.getMapAsync(this)
+    }
+
+    override fun onMapReady(googleMap: GoogleMap) {
+        mMap = googleMap
+
+        mMap.uiSettings.apply {
+            isZoomControlsEnabled = true
+            isIndoorLevelPickerEnabled = true
+            isCompassEnabled = true
+            isMapToolbarEnabled = true
+        }
+        setMarker()
+    }
+
+    private fun setMarker() {
+        val latLng = LatLng(userDetail.lat, userDetail.lon)
+        mMap.addMarker(
+            MarkerOptions()
+                .position(latLng)
+                .title(userDetail.name)
+        )
+
+        val defaultCameraSetup = LatLng(userDetail.lat, userDetail.lon)
+        mMap.animateCamera(
+            CameraUpdateFactory.newLatLngZoom(
+                defaultCameraSetup,
+                7f
+            )
+        )
     }
 
     private fun setupView() {

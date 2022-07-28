@@ -15,6 +15,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
 import dagger.hilt.android.AndroidEntryPoint
+import id.stefanusdany.core.helper.utils.Helper.DEFAULT_LOCATION
 import id.stefanusdany.core.helper.utils.Helper.TAG
 import id.stefanusdany.core.helper.utils.Result
 import id.stefanusdany.storyapp.R
@@ -152,7 +153,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     companion object {
-        private const val DEFAULT_LOCATION = 1
         private const val DEFAULT_LAT = -6.200000
         private const val DEFAULT_LONG = 106.816666
     }

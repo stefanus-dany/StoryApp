@@ -10,8 +10,8 @@ import id.stefanusdany.domain.repository.IRepository
 import io.reactivex.Flowable
 
 class StoryInteractor @Inject constructor(private val repository: IRepository) : StoryUseCase {
-    override fun getAllStories(token: String): Flowable<Result<List<ListStoryModel>>> =
-        repository.getAllStories(token)
+    override fun getAllStories(token: String, location: Int): Flowable<Result<List<ListStoryModel>>> =
+        repository.getAllStories(token, location)
 
     override fun getAllMarkerMaps(token: String, location: Int): Flowable<Result<StoryModel>> =
         repository.getAllMarkerMaps(token, location)
