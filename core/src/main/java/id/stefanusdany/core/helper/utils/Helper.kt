@@ -6,5 +6,6 @@ object Helper {
     const val EXTRA_STORY = "extra_story"
     const val EXTRA_TOKEN = "extra_token"
     const val RESULT_SUCCESS = 100
+    const val DEFAULT_LOCATION = 1
 
 }

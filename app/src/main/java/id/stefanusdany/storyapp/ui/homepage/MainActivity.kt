@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import id.stefanusdany.core.helper.utils.Helper
+import id.stefanusdany.core.helper.utils.Helper.DEFAULT_LOCATION
 import id.stefanusdany.core.helper.utils.Result
 import id.stefanusdany.domain.model.auth.LoginResultModel
 import id.stefanusdany.storyapp.R
@@ -41,7 +42,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun getAllStories() {
         if (userInfo != null) {
-            mainViewModel.getAllStories(getString(R.string.token_format, userInfo?.token))
+            mainViewModel.getAllStories(getString(R.string.token_format, userInfo?.token), DEFAULT_LOCATION)
                 .observe(this) { listStory ->
                     binding.apply {
                         when (listStory) {

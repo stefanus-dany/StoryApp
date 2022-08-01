@@ -16,8 +16,8 @@ class MainViewModel @Inject constructor(
 
     fun getUserInfo() = LiveDataReactiveStreams.fromPublisher(authUseCase.getUserInfo())
 
-    fun getAllStories(token: String) =
-        LiveDataReactiveStreams.fromPublisher(storyUseCase.getAllStories(token))
+    fun getAllStories(token: String, location: Int) =
+        LiveDataReactiveStreams.fromPublisher(storyUseCase.getAllStories(token, location))
 
     fun logout() = authUseCase.logout()
 

@@ -26,7 +26,7 @@ interface IRepository {
 
     fun login(email: String, password: String): Flowable<Result<LoginModel>>
 
-    fun getAllStories(token: String): Flowable<Result<List<ListStoryModel>>>
+    fun getAllStories(token: String, location: Int): Flowable<Result<List<ListStoryModel>>>
 
     fun getAllMarkerMaps(token: String, location: Int): Flowable<Result<StoryModel>>
 

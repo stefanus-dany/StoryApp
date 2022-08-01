@@ -24,10 +24,10 @@ import okhttp3.RequestBody.Companion.toRequestBody
 @Singleton
 class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
 
-    fun getAllStories(token: String): Flowable<ApiResponse<List<ListStoryResponse>>> {
+    fun getAllStories(token: String, location: Int): Flowable<ApiResponse<List<ListStoryResponse>>> {
         val resultData = PublishSubject.create<ApiResponse<List<ListStoryResponse>>>()
 
-        apiService.getAllStories(token)
+        apiService.getAllStories(token, location)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .take(1)
@@ -46,7 +46,7 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
     fun getAllMarkerMaps(token: String, location: Int): Flowable<ApiResponse<StoryResponse>> {
         val resultData = PublishSubject.create<ApiResponse<StoryResponse>>()
 
-        apiService.getAllMarkerMaps(token, location)
+        apiService.getAllStories(token, location)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .take(1)
