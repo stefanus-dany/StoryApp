@@ -54,6 +54,9 @@ dependencies {
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
     implementation "androidx.room:room-rxjava2:$rx_room_version"
 
+    implementation "net.zetetic:android-database-sqlcipher:$sql_chipper"
+    implementation "androidx.sqlite:sqlite-ktx:$sqlite"
+
     // project
     implementation project(core)
     implementation project(domain)
