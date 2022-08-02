@@ -4,6 +4,6 @@
     <string name="insert_email">Masukkan surel</string>
     <string name="password_less_than_six_char">Kata sandi kurang dari 6 karakter</string>
     <string name="insert_password">Masukkan kata sandi</string>
-    <string name="retry">Coba lagi..</string>
+    <string name="retry">Coba lagi</string>
     <string name="favorite">Favorite</string>
 </resources>
