@@ -67,7 +67,7 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
     ): Flowable<ApiResponse<RegisterResponse>> {
         val resultData = PublishSubject.create<ApiResponse<RegisterResponse>>()
 
-        apiService.register(BodyRegister(name, email, password))
+        apiService.register(name, email, password)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .take(1)
@@ -81,8 +81,7 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
 
     fun login(email: String, password: String): Flowable<ApiResponse<LoginResponse>> {
         val resultData = PublishSubject.create<ApiResponse<LoginResponse>>()
-
-        apiService.login(BodyLogin(email, password))
+        apiService.login(email, password)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .take(1)
@@ -109,9 +108,9 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
                 file.name,
                 file.asRequestBody(IMAGE_FILE.toMediaTypeOrNull())
             ),
-            description = description.toRequestBody(TEXT_FILE.toMediaTypeOrNull()),
-            lat = lat.toString().toRequestBody(TEXT_FILE.toMediaTypeOrNull()),
-            lon = lon.toString().toRequestBody(TEXT_FILE.toMediaTypeOrNull())
+            description = description.toRequestBody(TEXT.toMediaTypeOrNull()),
+            lat = lat.toString().toRequestBody(TEXT.toMediaTypeOrNull()),
+            lon = lon.toString().toRequestBody(TEXT.toMediaTypeOrNull())
         )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -125,7 +124,7 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
     }
 
     companion object {
-        private const val TEXT_FILE = "text/plain"
+        private const val TEXT = "text/plain"
         private const val IMAGE_FILE = "image/jpeg"
         private const val PHOTO_FILE = "photo"
     }

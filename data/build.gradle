@@ -20,7 +20,11 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -53,6 +57,9 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
     implementation "androidx.room:room-rxjava2:$rx_room_version"
+
+    implementation "net.zetetic:android-database-sqlcipher:$sql_chipper"
+    implementation "androidx.sqlite:sqlite-ktx:$sqlite"
 
     // project
     implementation project(core)
