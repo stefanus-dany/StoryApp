@@ -82,10 +82,8 @@ class AddStoryActivity : AppCompatActivity() {
     }
 
     private fun setupView() {
-        with(supportActionBar) {
-            this?.setDisplayHomeAsUpEnabled(true)
-            title = getString(R.string.title_add_story)
-        }
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = getString(R.string.title_add_story)
     }
 
     private fun requestCameraAndGalleryPermission() {

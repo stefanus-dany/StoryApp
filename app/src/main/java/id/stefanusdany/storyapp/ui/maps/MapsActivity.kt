@@ -115,10 +115,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun setupView() {
-        with(supportActionBar) {
-            this?.setDisplayHomeAsUpEnabled(true)
-            title = getString(R.string.title_google_maps)
-        }
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = getString(R.string.title_google_maps)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
