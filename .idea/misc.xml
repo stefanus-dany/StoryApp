@@ -16,7 +16,10 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/Menjadi Android Developer Expert/Submission 1/StoryApp/core/src/main/res/layout/item_loading.xml" value="0.2" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Menjadi Android Developer Expert/Submission 1/StoryApp/favorite/src/main/res/layout/activity_favorite.xml" value="0.2" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StoryAppMADE/app/src/main/res/layout/activity_add_story.xml" value="0.2" />
+<<<<<<< HEAD
         <entry key="..\:/Users/User/AndroidStudioProjects/StoryAppMADE/app/src/main/res/layout/activity_login.xml" value="0.24478594950603733" />
+=======
+>>>>>>> 9e57c0bd39930c5178207396738db04c2dc6b77e
       </map>
     </option>
   </component>
