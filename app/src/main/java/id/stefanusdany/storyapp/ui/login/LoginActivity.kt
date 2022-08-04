@@ -23,6 +23,14 @@ import id.stefanusdany.storyapp.ui.utils.UIHelper.visible
 class LoginActivity : AppCompatActivity() {
     private val loginViewModel: LoginViewModel by viewModels()
     private lateinit var binding: ActivityLoginBinding
+    private lateinit var objectAnimator: ObjectAnimator
+    private lateinit var objectAnimatorTitleTextView: ObjectAnimator
+    private lateinit var objectAnimatorEmailTextView: ObjectAnimator
+    private lateinit var objectAnimatorEmailEditTextLayout: ObjectAnimator
+    private lateinit var objectAnimatorPasswordTextView: ObjectAnimator
+    private lateinit var objectAnimatorPasswordEditTextLayout: ObjectAnimator
+    private lateinit var objectAnimatorLoginButton: ObjectAnimator
+    private lateinit var objectAnimatorDontHaveAccountTextView: ObjectAnimator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -106,28 +114,54 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupAnimation() {
+        binding.apply {
+            objectAnimatorTitleTextView = setViewAnimation(titleTextView)
+            objectAnimatorEmailTextView = setViewAnimation(emailTextView)
+            objectAnimatorEmailEditTextLayout = setViewAnimation(emailEditTextLayout)
+            objectAnimatorPasswordTextView = setViewAnimation(passwordTextView)
+            objectAnimatorPasswordEditTextLayout = setViewAnimation(passwordEditTextLayout)
+            objectAnimatorLoginButton = setViewAnimation(loginButton)
+            objectAnimatorDontHaveAccountTextView = setViewAnimation(dontHaveAccountTextView)
+        }
+    }
+
     private fun playAnimation() {
-        ObjectAnimator.ofFloat(binding.imageView, View.TRANSLATION_X, -30f, 30f).apply {
-            duration = 6000
-            repeatCount = ObjectAnimator.INFINITE
-            repeatMode = ObjectAnimator.REVERSE
-        }.start()
+        setupAnimation()
+
+        objectAnimator =
+            ObjectAnimator.ofFloat(binding.imageView, View.TRANSLATION_X, -30f, 30f).apply {
+                duration = 6000
+                repeatCount = ObjectAnimator.INFINITE
+                repeatMode = ObjectAnimator.REVERSE
+            }
+        objectAnimator.start()
 
         AnimatorSet().apply {
-            with(binding) {
-                playSequentially(
-                    setViewAnimation(titleTextView),
-                    setViewAnimation(emailTextView),
-                    setViewAnimation(emailEditTextLayout),
-                    setViewAnimation(passwordTextView),
-                    setViewAnimation(passwordEditTextLayout),
-                    setViewAnimation(loginButton),
-                    setViewAnimation(dontHaveAccountTextView),
-                )
-                start()
-            }
+            playSequentially(
+                objectAnimatorTitleTextView,
+                objectAnimatorEmailTextView,
+                objectAnimatorEmailEditTextLayout,
+                objectAnimatorPasswordTextView,
+                objectAnimatorPasswordEditTextLayout,
+                objectAnimatorLoginButton,
+                objectAnimatorDontHaveAccountTextView
+            )
+            start()
         }
 
+    }
+
+    override fun onDestroy() {
+        objectAnimator.end()
+        objectAnimatorTitleTextView.end()
+        objectAnimatorEmailTextView.end()
+        objectAnimatorEmailEditTextLayout.end()
+        objectAnimatorPasswordTextView.end()
+        objectAnimatorPasswordEditTextLayout.end()
+        objectAnimatorLoginButton.end()
+        objectAnimatorDontHaveAccountTextView.end()
+        super.onDestroy()
     }
 
 }
