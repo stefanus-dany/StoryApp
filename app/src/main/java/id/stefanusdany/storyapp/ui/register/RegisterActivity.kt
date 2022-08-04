@@ -23,6 +23,16 @@ class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
     private val registerViewModel: RegisterViewModel by viewModels()
+    private lateinit var objectAnimator: ObjectAnimator
+    private lateinit var objectAnimatorTitleTextView: ObjectAnimator
+    private lateinit var objectAnimatorEmailTextView: ObjectAnimator
+    private lateinit var objectAnimatorEmailEditTextLayout: ObjectAnimator
+    private lateinit var objectAnimatorNameTextView: ObjectAnimator
+    private lateinit var objectAnimatorNameEditTextLayout: ObjectAnimator
+    private lateinit var objectAnimatorPasswordTextView: ObjectAnimator
+    private lateinit var objectAnimatorPasswordEditTextLayout: ObjectAnimator
+    private lateinit var objectAnimatorLoginButton: ObjectAnimator
+    private lateinit var objectAnimatorDontHaveAccountTextView: ObjectAnimator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,8 +44,23 @@ class RegisterActivity : AppCompatActivity() {
         playAnimation()
     }
 
+    private fun setupAnimation() {
+        binding.apply {
+            objectAnimatorTitleTextView = setViewAnimation(titleTextView)
+            objectAnimatorEmailTextView = setViewAnimation(emailTextView)
+            objectAnimatorEmailEditTextLayout = setViewAnimation(emailEditTextLayout)
+            objectAnimatorNameTextView = setViewAnimation(nameTextView)
+            objectAnimatorNameEditTextLayout = setViewAnimation(nameEditTextLayout)
+            objectAnimatorPasswordTextView = setViewAnimation(passwordTextView)
+            objectAnimatorPasswordEditTextLayout = setViewAnimation(passwordEditTextLayout)
+            objectAnimatorLoginButton = setViewAnimation(signupButton)
+            objectAnimatorDontHaveAccountTextView = setViewAnimation(haveAccountTextView)
+        }
+    }
+
     private fun playAnimation() {
-        ObjectAnimator.ofFloat(
+        setupAnimation()
+        objectAnimator = ObjectAnimator.ofFloat(
             binding.imageView,
             View.TRANSLATION_X,
             ANIMATION_VALUES.first,
@@ -44,25 +69,38 @@ class RegisterActivity : AppCompatActivity() {
             duration = ANIMATION_DURATION
             repeatCount = ObjectAnimator.INFINITE
             repeatMode = ObjectAnimator.REVERSE
-        }.start()
+        }
+        objectAnimator.start()
 
         AnimatorSet().apply {
-            with(binding) {
-                playSequentially(
-                    setViewAnimation(titleTextView),
-                    setViewAnimation(nameTextView),
-                    setViewAnimation(nameEditTextLayout),
-                    setViewAnimation(emailTextView),
-                    setViewAnimation(emailEditTextLayout),
-                    setViewAnimation(passwordTextView),
-                    setViewAnimation(passwordEditTextLayout),
-                    setViewAnimation(signupButton),
-                    setViewAnimation(haveAccountTextView),
-                )
-                start()
-            }
+            playSequentially(
+                objectAnimatorTitleTextView,
+                objectAnimatorNameTextView,
+                objectAnimatorNameEditTextLayout,
+                objectAnimatorEmailTextView,
+                objectAnimatorEmailEditTextLayout,
+                objectAnimatorPasswordTextView,
+                objectAnimatorPasswordEditTextLayout,
+                objectAnimatorLoginButton,
+                objectAnimatorDontHaveAccountTextView
+            )
+            start()
         }
 
+    }
+
+    override fun onDestroy() {
+        objectAnimator.end()
+        objectAnimatorTitleTextView.end()
+        objectAnimatorNameTextView.end()
+        objectAnimatorNameEditTextLayout.end()
+        objectAnimatorEmailTextView.end()
+        objectAnimatorEmailEditTextLayout.end()
+        objectAnimatorPasswordTextView.end()
+        objectAnimatorPasswordEditTextLayout.end()
+        objectAnimatorLoginButton.end()
+        objectAnimatorDontHaveAccountTextView.end()
+        super.onDestroy()
     }
 
     private fun setupView() {
